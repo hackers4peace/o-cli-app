@@ -2,18 +2,30 @@
 
 ## features
 
+* [x] generate key pair
 * [x] sign data
-* [ ] save data to pod (we start with adding a resource to a concrete container)
+* [x] fetch single resource
 * [ ] fetch identity and all related containers ( see o-data in o-app-karma - eager )
-* [ ] generate key pair (later, for now we can use openssl)
+* [ ] save data to pod (we start with adding a resource to a concrete container)
 
 ## usage
+
+### key:new
+
+``` 
+gulp key:new
+```
 
 ### sign
 
 ```
-gulp sign --path /path/to/file.jsonld --privPem /path/to/key.pem
---pubKey https://bob.example/keys/1
+gulp sign --path /path/to/file.jsonld --privPem /path/to/key.pem --pubKey https://bob.example/keys/1
+```
+
+### fetch
+
+```
+gulp fetch --uri https://alice.example/
 ```
 
 ## dependencies

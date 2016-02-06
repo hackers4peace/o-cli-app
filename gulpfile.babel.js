@@ -2,6 +2,18 @@ import gulp from 'gulp'
 import { argv } from 'yargs'
 import fs from 'fs'
 import Client from 'o-api-client'
+import forge from 'node-forge'
+import fetch from 'node-fetch'
+
+/*
+ *
+ * TODO: openssl rsa -pubin -inform PEM -text -noout < public.key
+ */
+gulp.task('key:new', () => {
+  let keypair = forge.pki.rsa.generateKeyPair({bits: 2048, e: 0x10001})
+  console.log(forge.pki.privateKeyToPem(keypair.privateKey))
+  console.log(forge.pki.publicKeyToPem(keypair.publicKey))
+})
 
 /*
  * prints document as expanded JSON-LD
@@ -21,3 +33,12 @@ gulp.task('sign', () => {
     })
 })
 
+gulp.task('fetch', () => {
+  console.log('fetch uri: ', argv.uri)
+  fetch(argv.uri)
+    .then((res) => {
+      return res.text()
+    }).then((body) => {
+      console.log(body)
+    })
+})
