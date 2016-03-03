@@ -10,7 +10,7 @@ import fetch from 'node-fetch'
  * TODO: openssl rsa -pubin -inform PEM -text -noout < public.key
  */
 gulp.task('key:new', () => {
-  let keypair = forge.pki.rsa.generateKeyPair({bits: 2048, e: 0x10001})
+  let keypair = forge.pki.rsa.generateKeyPair({bits: 4096, e: 0x10001})
   console.log(forge.pki.privateKeyToPem(keypair.privateKey))
   console.log(forge.pki.publicKeyToPem(keypair.publicKey))
 })
