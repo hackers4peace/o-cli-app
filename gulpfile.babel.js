@@ -81,11 +81,11 @@ gulp.task('publish', (done) => {
   console.log('publish path: ', argv.path)
   console.log('publish container: ', argv.container)
   let doc = JSON.parse(fs.readFileSync(argv.path, 'utf8'))
-  fetch(argv.container, { method: 'POST', body: JSON.stringify(doc), headers: { "Content-Type": "application/ld+json" } })
-    .then(function(res) {
-      return res.json();
-    }).then(function(json) {
-      console.log(json);
+  fetch(argv.container, { method: 'POST', body: JSON.stringify(doc), headers: { 'Content-Type': 'application/ld+json' } })
+    .then((res) => {
+      return res.json()
+    }).then((json) => {
+      console.log(json)
       return done()
     }).catch((err) => {
       console.log(err)
