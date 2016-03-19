@@ -4,6 +4,7 @@ import fs from 'fs'
 import Client from 'o-api-client'
 import forge from 'node-forge'
 import fetch from 'node-fetch'
+import Store from 'rdf-store-inmemory'
 
 /*
  *
@@ -60,11 +61,32 @@ gulp.task('verify', (done) => {
 
 gulp.task('fetch', (done) => {
   console.log('fetch uri: ', argv.uri)
-  fetch(argv.uri)
-    .then((res) => {
-      return res.text()
-    }).then((body) => {
-      console.log(body)
+  let client = new Client({}, { fetch: fetch })
+  client.get(argv.uri)
+    .then((response) => {
+      console.log(response.url)
+      console.log(response.graph.toString())
+      return done()
+    }).catch((err) => {
+      console.log(err)
+      return done()
+    })
+})
+
+gulp.task('fetch:all', (done) => {
+  console.log('fetch:full uri: ', argv.uri)
+  let store = new Store()
+  let client = new Client(store, {}, { fetch: fetch })
+  client.getReferencedContainers(argv.uri)
+    .then((responses) => {
+      return Promise.all(responses.map((response) => {
+        if (!response.error) {
+          return client.getAllContained(response.url)
+        } else { return Promise.resolve() }
+      }))
+    }).then((all) => {
+      console.log(Object.keys(store.graphs))
+      console.log('fetched ', Object.keys(store.graphs).length, ' resources')
       return done()
     }).catch((err) => {
       console.log(err)
