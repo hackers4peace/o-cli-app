@@ -3,42 +3,17 @@
 ## features
 
 * [x] generate key pair
-* [x] sign data
-* [x] verify signed data
-* [x] fetch single resource
-* [x] publish data to workspace (we start with adding a resource to a concrete container)
-* [ ] fetch identity and all related containers ( see o-data in o-app-karma - eager )
+* [ ] sign data
+* [ ] verify signed data
+* [ ] fetch single resource
+* [ ] publish data to dataset
 
 ## usage
 
-### key:new
-
-``` 
-gulp key:new
-```
-
-### sign
+### key:generate
 
 ```
-gulp sign --path /path/to/file.jsonld --privPem /path/to/key.pem --pubKey https://bob.example/keys/1
-```
-
-### verify
-
-```
-gulp verify --path /path/to/file.jsonld
-```
-
-### fetch
-
-```
-gulp fetch --uri https://alice.example/
-```
-
-### publish
-
-```
-gulp publish --path /path/o/file.jsonld --container https://bob.example/activities
+gulp key:generate
 ```
 
 ## dependencies
@@ -53,5 +28,7 @@ gulp publish --path /path/o/file.jsonld --container https://bob.example/activiti
 * rdf-ext
  * jsonld
  * n3
+* native-crypto
+* pem-jwk
 * jsonld-signatures
  * forge
